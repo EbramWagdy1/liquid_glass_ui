@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../liquid_glass_ui.dart';
+import '../../liquid_glass_kit.dart';
 
 class LiquidGlassNavBarItem {
   final IconData icon;

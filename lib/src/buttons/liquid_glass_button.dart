@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../liquid_glass_ui.dart';
+import '../../liquid_glass_kit.dart';
 
 /// A pressable button with glassmorphism styling.
 class LiquidGlassButton extends StatefulWidget {

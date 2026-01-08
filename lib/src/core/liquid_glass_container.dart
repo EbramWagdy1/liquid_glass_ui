@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../liquid_glass_ui.dart';
+import '../../liquid_glass_kit.dart';
 
 /// The core container for the Liquid Glass UI system.
 class LiquidGlassContainer extends StatelessWidget {

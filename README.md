@@ -2,10 +2,10 @@
 
 A production-ready Flutter UI Kit for creating stunning glassmorphism interfaces.
 
-[![Pub Version](https://img.shields.io/pub/v/liquid_glass_ui)](https://pub.dev/packages/liquid_glass_ui)
+[![Pub Version](https://img.shields.io/pub/v/liquid_glass_kit)](https://pub.dev/packages/liquid_glass_kit)
 [![Flutter Platform](https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter)](https://flutter.dev)
 
-`liquid_glass_ui` provides a set of highly optimized, customizable, and ready-to-use components to build "Liquid Glass" interfaces. It focuses on performance, clean architecture, and ease of use.
+`liquid_glass_kit` provides a set of highly optimized, customizable, and ready-to-use components to build "Liquid Glass" interfaces. It focuses on performance, clean architecture, and ease of use.
 
 ## Features
 
@@ -25,7 +25,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  liquid_glass_ui: ^1.0.0
+  liquid_glass_kit: ^1.0.0
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ dependencies:
 Add `LiquidGlassThemeData` to your app's `ThemeData` extensions. This allows you to control the global glass style and performance quality.
 
 ```dart
-import 'package:liquid_glass_ui/liquid_glass_ui.dart';
+import 'package:liquid_glass_kit/liquid_glass_kit.dart';
 
 MaterialApp(
   theme: ThemeData.dark().copyWith(

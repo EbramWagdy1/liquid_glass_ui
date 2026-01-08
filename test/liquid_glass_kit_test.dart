@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:liquid_glass_ui/liquid_glass_ui.dart';
+import 'package:liquid_glass_kit/liquid_glass_kit.dart';
 
 void main() {
   group('LiquidGlassTheme', () {
