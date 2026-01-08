@@ -11,6 +11,7 @@ A production-ready Flutter UI Kit for creating stunning glassmorphism interfaces
 
 - 🧊 **LiquidGlassContainer**: The core engine with configurable blur, opacity, and gradients.
 - 🚀 **Performance Modes**: Built-in Quality Control (High, Medium, Low) to support low-end devices.
+- 🌐 **Web Support**: Fully compatible using the **CanvasKit** renderer (`flutter run -d chrome --web-renderer canvaskit`). HTML renderer may have artifacts with blur filters.
 - 🎨 **Theme System**: Full `ThemeExtension` support for seamless integration with `ThemeData`.
 - 🧩 **UI Components**:
     - `LiquidGlassButton`, `LiquidGlassIconButton`, `LiquidGlassFAB`

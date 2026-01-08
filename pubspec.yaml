@@ -1,11 +1,12 @@
 name: liquid_glass_ui
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: "High-performance Flutter UI kit for glassmorphism effects with adaptive quality control and theme extensions."
+version: 1.0.0
+homepage: https://github.com/EbramWagdy1/liquid_glass_ui
+repository: https://github.com/EbramWagdy1/liquid_glass_ui
 
 environment:
   sdk: ^3.10.1
-  flutter: ">=1.17.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:

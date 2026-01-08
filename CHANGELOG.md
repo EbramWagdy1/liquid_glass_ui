@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial release of Liquid Glass UI.
+* Core `LiquidGlassContainer` engine with blur and quality controls.
+* `ThemeExtension` support via `LiquidGlassThemeData`.
+* Components: Buttons, NavBar, Cards, Icons.
+* High-fidelity "Control Center" example.
