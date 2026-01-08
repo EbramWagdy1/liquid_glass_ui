@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 /// Defines the performance/visual quality level of the glass effect.
@@ -117,11 +118,5 @@ class LiquidGlassThemeData extends ThemeExtension<LiquidGlassThemeData> {
       case LiquidGlassQuality.low:
         return 0.0;
     }
-  }
-
-  /// Helper methods for lerping doubles.
-  double? lerpDouble(double? a, double? b, double t) {
-    if (a == null && b == null) return null;
-    return (a ?? 0.0) + ((b ?? 0.0) - (a ?? 0.0)) * t;
   }
 }
