@@ -13,6 +13,7 @@ class LiquidGlassShowcaseApp extends StatefulWidget {
 }
 
 class _LiquidGlassShowcaseAppState extends State<LiquidGlassShowcaseApp> {
+  // Toggle for performance demonstration
   LiquidGlassQuality _quality = LiquidGlassQuality.high;
 
   void _cycleQuality() {
@@ -33,305 +34,290 @@ class _LiquidGlassShowcaseAppState extends State<LiquidGlassShowcaseApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Define the custom theme extension
+    // Premium Dark Glass Theme
     final glassTheme = LiquidGlassThemeData(
       quality: _quality,
-      accentColor: Colors.pinkAccent,
-      baseOpacity: 0.15,
+      blurSigma: 25.0, // High blur for "frosted" look
+      baseOpacity: 0.1, // Very transparent base
+      baseColor: Colors.black, // Dark glass
+      // The secret to "Real Glass": Crisp, semi-transparent white borders
+      borderColor: Colors.white.withValues(alpha: 0.3),
+      borderWidth: 1.5,
+      borderRadius: 30.0,
+      accentColor: Colors.amber, // Warm accent
     );
 
     return MaterialApp(
-      title: 'Liquid Glass UI',
+      title: 'Liquid Glass High Fidelity',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF0F0F0F), // Deep black
         extensions: <ThemeExtension<dynamic>>[glassTheme],
       ),
-      home: LiquidGlassHomePage(onQualityToggle: _cycleQuality),
+      home: ControlCenterPage(onQualityToggle: _cycleQuality),
     );
   }
 }
 
-class LiquidGlassHomePage extends StatefulWidget {
+class ControlCenterPage extends StatelessWidget {
   final VoidCallback onQualityToggle;
-  const LiquidGlassHomePage({super.key, required this.onQualityToggle});
 
-  @override
-  State<LiquidGlassHomePage> createState() => _LiquidGlassHomePageState();
-}
-
-class _LiquidGlassHomePageState extends State<LiquidGlassHomePage> {
-  int _navIndex = 0;
+  const ControlCenterPage({super.key, required this.onQualityToggle});
 
   @override
   Widget build(BuildContext context) {
-    // Access current quality for display
-    final glassTheme = Theme.of(context).extension<LiquidGlassThemeData>();
-    final currentQuality = glassTheme?.quality ?? LiquidGlassQuality.high;
-
+    // Complex abstract background to show off the refraction
     return Scaffold(
       body: Stack(
         children: [
-          // Background Gradient
+          // 1. Dynamic Background (Lava Lamp style)
           Positioned.fill(
             child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF2E0249),
-                    Color(0xFF570A57),
-                    Color(0xFFA91079),
-                    Color(0xFFF806CC),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Decorative shapes
-          Positioned(
-            top: -100,
-            left: -50,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.purpleAccent.withValues(alpha: 0.4),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 100,
-            right: -50,
-            child: Container(
-              width: 250,
-              height: 250,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blueAccent.withValues(alpha: 0.4),
-              ),
-            ),
-          ),
-
-          // Content
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              color: Colors.black,
+              child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Expanded(
-                        child: Column(
+                  // Moving gradients / images would be best, here we simulate with static blobs
+                  _buildBlob(TopLeft: true, color: Colors.blueAccent),
+                  _buildBlob(BottomRight: true, color: Colors.purpleAccent),
+                  _buildBlob(Center: true, color: Colors.orangeAccent),
+
+                  // Texture overlay (noise) could be added here for "grit"
+                ],
+              ),
+            ),
+          ),
+
+          // 2. The Glass UI Layer
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  _buildHeader(),
+                  const SizedBox(height: 30),
+
+                  // Status Pill (Big Glass Block)
+                  LiquidGlassContainer(
+                    height: 140,
+                    padding: const EdgeInsets.all(24),
+                    // Add a subtle gradient overlay to simulate surface reflection
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withValues(alpha: 0.1),
+                        Colors.white.withValues(alpha: 0.0),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Liquid Glass UI',
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            // Icons with "Glow"
+                            LiquidGlassIcon(
+                              Icons.wifi,
+                              size: 32,
+                              useGradient: true,
                             ),
-                            Text(
-                              'Premium Glassmorphism Kit',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white70,
-                              ),
+                            const SizedBox(height: 16),
+                            LiquidGlassIcon(
+                              Icons.bluetooth,
+                              size: 32,
+                              useGradient: true,
                             ),
                           ],
                         ),
-                      ),
-                      LiquidGlassIconButton(
-                        onPressed: widget.onQualityToggle,
-                        icon: const Icon(Icons.speed, color: Colors.white),
-                        size: 40,
-                        color: Colors.white.withValues(alpha: 0.1),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      "Quality: ${currentQuality.name.toUpperCase()}",
-                      style: const TextStyle(
-                        color: Colors.amber,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  // Cards Section
-                  const _SectionHeader('Cards'),
-                  const SizedBox(height: 10),
-                  LiquidGlassCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Glass Card',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'This is a premium card component with real-time background blur and border effects.',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            LiquidGlassButton(
-                              onPressed: () {},
-                              borderRadius: 12,
-                              height: 40,
-                              child: const Text('Action'),
+                            Text(
+                              "Liquid Wi-Fi",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              "Connected",
+                              style: TextStyle(
+                                color: Colors.white54,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              "Bluetooth",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              "On",
+                              style: TextStyle(
+                                color: Colors.white54,
+                                fontSize: 14,
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-
-                  // Buttons Section
-                  const _SectionHeader('Buttons'),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: [
-                      LiquidGlassButton(
-                        onPressed: () {},
-                        child: const Text('Primary Button'),
-                      ),
-                      LiquidGlassButton(
-                        onPressed: () {},
-                        color: Colors.white.withValues(alpha: 0.1),
-                        child: const Text('Secondary'),
-                      ),
-                      LiquidGlassIconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite, color: Colors.white),
-                      ),
-                      LiquidGlassIconButton(
-                        onPressed: () {},
-                        icon: const LiquidGlassIcon(
-                          Icons.star,
-                          useGradient: true,
-                        ),
-                        color: Colors.amber.withValues(alpha: 0.2),
-                      ),
-                    ],
-                  ),
 
                   const SizedBox(height: 20),
-                  // Inputs / Misc
-                  const _SectionHeader('Shapes & Effects'),
-                  const SizedBox(height: 10),
+
+                  // Toggles Row
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      LiquidGlassContainer(
-                        width: 100,
-                        height: 100,
-                        blur: 20,
-                        borderRadius: 20,
-                        child: const Center(
-                          child: Text(
-                            "Box",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      LiquidGlassContainer(
-                        width: 100,
-                        height: 100,
-                        blur: 5,
-                        shape: BoxShape.circle,
-                        child: const Center(
-                          child: Text(
-                            "Circle",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      _buildGlassToggle(Icons.airplane_ticket, Colors.orange),
+                      _buildGlassToggle(Icons.data_usage, Colors.green),
+                      _buildGlassToggle(Icons.share, Colors.blue),
+                      _buildGlassToggle(Icons.flashlight_on, Colors.white),
                     ],
                   ),
+
+                  const SizedBox(height: 20),
+
+                  // Sliders Row
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: _buildVerticalSlider(
+                            icon: Icons.brightness_6,
+                            level: 0.7,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: _buildVerticalSlider(
+                            icon: Icons.volume_up,
+                            level: 0.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Quality Toggle as a "Button"
+                  Center(
+                    child: LiquidGlassButton(
+                      onPressed: onQualityToggle,
+                      borderRadius: 50,
+                      child: const Text("Toggle Quality (Bloom)"),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
-
-          // Navigation Bar
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: LiquidGlassNavBar(
-              currentIndex: _navIndex,
-              showLabels: true,
-              onTap: (index) => setState(() => _navIndex = index),
-              items: [
-                LiquidGlassNavBarItem(icon: Icons.home_rounded, label: 'Home'),
-                LiquidGlassNavBarItem(
-                  icon: Icons.explore_rounded,
-                  label: 'Explore',
-                ),
-                LiquidGlassNavBarItem(
-                  icon: Icons.person_rounded,
-                  label: 'Profile',
-                ),
-              ],
-            ),
-          ),
         ],
-      ),
-      floatingActionButton: LiquidGlassFAB(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: (_) => const LiquidGlassSheet(
-              height: 300,
-              child: Center(
-                child: Text(
-                  "Glass Sheet",
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
-            ),
-          );
-        },
-        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
-}
 
-class _SectionHeader extends StatelessWidget {
-  final String title;
-  const _SectionHeader(this.title);
+  Widget _buildGlassToggle(IconData icon, Color color) {
+    return LiquidGlassContainer(
+      width: 70,
+      height: 70,
+      borderRadius: 35, // Circle
+      // Make the "pressed" or "active" state feel like a lens
+      child: Center(
+        child: LiquidGlassIcon(icon, size: 28, color: color, useGradient: true),
+      ),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: Colors.white54,
-        letterSpacing: 1.2,
+  Widget _buildVerticalSlider({required IconData icon, required double level}) {
+    return LiquidGlassContainer(
+      padding: EdgeInsets.zero,
+      // Inner stack for the "fill" level
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          // Analysis: To look like a filled glass tube, the fill needs to be opaque-ish white
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Container(
+                height: constraints.maxHeight * level,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.9), // Bright fill
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(30),
+                  ),
+                ),
+              );
+            },
+          ),
+          Positioned(
+            bottom: 20,
+            child: Icon(
+              icon,
+              color: Colors.black,
+              size: 30,
+            ), // Icon inside the fill
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Control Center",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        LiquidGlassIcon(Icons.more_horiz),
+      ],
+    );
+  }
+
+  Widget _buildBlob({
+    bool TopLeft = false,
+    bool BottomRight = false,
+    bool Center = false,
+    required Color color,
+  }) {
+    // Helper for background gradients
+    return Positioned(
+      top: TopLeft ? -100 : (Center ? 200 : null),
+      bottom: BottomRight ? -100 : null,
+      left: TopLeft ? -50 : null,
+      right: BottomRight ? -50 : null,
+      child: Container(
+        width: 300,
+        height: 300,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color.withValues(alpha: 0.6),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.4),
+              blurRadius: 100,
+              spreadRadius: 50,
+            ),
+          ],
+        ),
       ),
     );
   }
