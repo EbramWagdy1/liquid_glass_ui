@@ -77,9 +77,9 @@ class ControlCenterPage extends StatelessWidget {
               child: Stack(
                 children: [
                   // Moving gradients / images would be best, here we simulate with static blobs
-                  _buildBlob(TopLeft: true, color: Colors.blueAccent),
-                  _buildBlob(BottomRight: true, color: Colors.purpleAccent),
-                  _buildBlob(Center: true, color: Colors.orangeAccent),
+                  _buildBlob(topLeft: true, color: Colors.blueAccent),
+                  _buildBlob(bottomRight: true, color: Colors.purpleAccent),
+                  _buildBlob(center: true, color: Colors.orangeAccent),
 
                   // Texture overlay (noise) could be added here for "grit"
                 ],
@@ -293,17 +293,17 @@ class ControlCenterPage extends StatelessWidget {
   }
 
   Widget _buildBlob({
-    bool TopLeft = false,
-    bool BottomRight = false,
-    bool Center = false,
+    bool topLeft = false,
+    bool bottomRight = false,
+    bool center = false,
     required Color color,
   }) {
     // Helper for background gradients
     return Positioned(
-      top: TopLeft ? -100 : (Center ? 200 : null),
-      bottom: BottomRight ? -100 : null,
-      left: TopLeft ? -50 : null,
-      right: BottomRight ? -50 : null,
+      top: topLeft ? -100 : (center ? 200 : null),
+      bottom: bottomRight ? -100 : null,
+      left: topLeft ? -50 : null,
+      right: bottomRight ? -50 : null,
       child: Container(
         width: 300,
         height: 300,
